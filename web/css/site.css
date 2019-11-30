@@ -1,0 +1,77 @@
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.wrap > .cabecera{
+    height: 10%;
+}
+.wrap > .row{
+    height: 80%;
+    width: 100%;
+}
+.wrap > .row > .col-sm-2{
+    height: 100%;
+}
+.wrap > .row > .col-sm-10{
+    height: 100%;
+}
+.wrap > .row > .col-sm-10 >.container{
+    position: absolute;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 50px;
+}
+.wrap > .footer{
+    position: fixed;
+    width: 100%;
+    height: 10%;
+    background-color: #474747;
+    border-top: 1px solid #474750;
+    padding-top: 25px;
+    color:whitesmoke;
+    font-family: "Verdana";
+    font-size: 18px;
+};
+.btn.btn-link.logout{
+    color: black; 
+    padding-top: 13.5px;
+    font-family: Verdana;
+}
+.btn.btn-link.logout:hover{
+    color: black; 
+    padding-top: 13.5px; 
+    font-family: Verdana;
+    font-weight:bold;
+}
+.navbar-nav.navbar-right > li > a{
+    color: cyan;
+    font-family: Verdana;
+    font-size: 20px;
+    padding-top: 25px; 
+}
+.navbar-nav.navbar-right > li.active > a{
+    color: cyan;
+    font-family: Verdana;
+    font-weight:bold;
+}
+.navbar-nav.navbar-right > li > a:hover{
+    color: cyan;
+    font-family: Verdana;
+    font-weight:bold;
+}
+.navbar-brand  > img {
+    width: 50px;
+    height: 50px;
+}
+.navbar-brand  > img:hover{
+    width: 55px;
+    height: 55px;
+}
