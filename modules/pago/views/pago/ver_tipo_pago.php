@@ -4,8 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
-<a href="<?= Url::toRoute("pago/crear_tipo_pago") ?>">Crear un nuevo tipo de pago</a>
-
 <h3>Lista de tipos de pago</h3>
 <table class="table table-bordered">
     <tr>

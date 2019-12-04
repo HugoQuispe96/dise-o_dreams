@@ -11,8 +11,6 @@ use app\modules\equipo\models\Equipos;
 
 <h3><?= $msg ?></h3>
 
-<a href="<?= Url::toRoute("horario/ver")?>">Ir a la lista de dias de entrenamientos</a>
-
 <h1>Crear dia de entrenamiento</h1>
 <?php $form = ActiveForm::begin([
     'method' => 'post',

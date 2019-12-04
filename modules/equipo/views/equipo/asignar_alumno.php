@@ -6,7 +6,6 @@ use yii\helpers\ArrayHelper;
 use app\modules\equipo\models\Equipos;
 use app\modules\usuarios\models\Users;
 $this->title = 'Asignar usuarios';
-$this->params['breadcrumbs'][] = ['label' => 'Lista de asignaciones', 'url' => ['equipo/ver_asignaciones']];
 ?>
 
 <h3><?=$msg?></h3>

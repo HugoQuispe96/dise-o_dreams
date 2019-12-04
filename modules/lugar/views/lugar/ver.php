@@ -4,8 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
-<a href="<?= Url::toRoute("lugar/crear") ?>">Crear un nuevo lugar de entrenamiento</a>
-
 <h3>Lista de lugares de entrenamientos</h3>
 <table class="table table-bordered">
     <tr>

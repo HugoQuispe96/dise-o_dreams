@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 ?>
-<a href="<?= Url::toRoute("equipo/crear")?>">crear un nuevo equipo</a>
 
 <h3>Lista de Equipos</h3>
 <table class="table table-bordered">

@@ -4,8 +4,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 ?>
 
-<a href="<?= Url::toRoute("pago/ver_tipo_pago") ?>">Ver tipos de pago</a>
-
 <h1>Editar tipo de pago con id : <?= Html::encode($_GET["id"]) ?></h1>
 
 <h3><?= $msg ?></h3>

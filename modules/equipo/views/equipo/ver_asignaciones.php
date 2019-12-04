@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use app\modules\equipo\models\Equipos;
 
 $this->title = 'Lista de usuario';
-$this->params['breadcrumbs'][] = ['label' => 'Asignar un nuevo alumno', 'url' => ['equipo/asignar_alumno']];
 ?>
 
 <?php $f = ActiveForm::begin([

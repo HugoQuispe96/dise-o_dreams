@@ -156,7 +156,7 @@ AppAsset::register($this);
                             'icon' => 'question-sign',
                             'items' => [
                                 ['label' => 'Nueva solicitud', 'icon'=>'info-sign', 'url'=> ['/pago/pago/crear-solicitud']],
-                                ['label' => 'Solicitudes realizadas', 'icon'=>'phone', 'url'=>['/pago/pago/ver-mis-solicitudes']],
+                                ['label' => 'Solicitudes realizadas', 'icon'=>'phone', 'url'=>['/pago/pago/ver-solicitudes-deportista']],
                             ],
                         ],
                         ['label' => 'Mi perfil', 'url' => ['/pruebas/prueba/deportista'], 'icon' => 'user'],

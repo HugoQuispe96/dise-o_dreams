@@ -4,7 +4,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 ?>
-<a href="<?= Url::toRoute("pago/crear-solicitud")?>">Crear una nueva solicitud</a>
 
 <h3>Lista de Solicitudes</h3>
 <table class="table table-bordered">

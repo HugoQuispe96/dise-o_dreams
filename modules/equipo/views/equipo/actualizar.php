@@ -4,7 +4,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 ?>
 
-<a href="<?= Url::toRoute("equipo/ver") ?>">Ver equipos</a>
 <h1>Editar al equipo id <?= Html::encode($_GET["id"]) ?></h1>
 
 <h3><?= $msg ?></h3>

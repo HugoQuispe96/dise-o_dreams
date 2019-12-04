@@ -4,8 +4,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 ?>
 
-<a href="<?= Url::toRoute("lugar/ver") ?>">Lista de lugares</a>
-
 <h1>Crear Lugar de entrenamiento</h1>
 <h3><?= $msg ?></h3>
 <?php $form = ActiveForm::begin([

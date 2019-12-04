@@ -306,5 +306,12 @@ class PagoController extends \yii\web\Controller
         $model = $table::find()->all();
         return $this->render("ver_tipo_pago",["model"=>$model]);
     }
+    public function actionVerSolicitudesDeportista()
+    {   
+        $array = Yii::$app->db->createCommand('SELECT  a.id, a.estado, b.nombre FROM dreams.solicitud_pago a, tipo_pago b
+        where a.tipopago_idtipopago = b.id and usuario_idusuario='.Yii::$app->user->identity->id)->queryAll();
+        $items = ArrayHelper::index($array, 'id');
+        return $this->render("ver-solicitudes-deportista", ["items" => $items]);
+    }
 
 }

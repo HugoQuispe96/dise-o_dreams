@@ -4,8 +4,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 ?>
 
-<a href="<?= Url::toRoute("lugar/ver") ?>">Ver lugares de entrenamientos</a>
-
 <h1>Editar al lugar de entrenamiento id <?= Html::encode($_GET["id"]) ?></h1>
 
 <h3><?= $msg ?></h3>

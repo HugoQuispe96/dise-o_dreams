@@ -3,7 +3,7 @@
 namespace app\modules\usuarios\models;
 use Yii;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
     
     public $id;
@@ -88,11 +88,11 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     
     /* Regresa el id del usuario */
-    public function getId()
+    public static function getId()
     {
         return $this->id;
     }
-    public function isProfesor()
+    public static function isProfesor()
     {
         if(Yii::$app->user->identity->rol == "profesor")
         {
@@ -103,7 +103,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         }
     }
 
-    public function isAdministrador()
+    public static function isAdministrador()
     {
         if(Yii::$app->user->identity->rol == "administrador")
         {
@@ -113,7 +113,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             return false;
         }
     }
-    public function isDeportista()
+    public static function isDeportista()
     {
         if(Yii::$app->user->identity->rol == "deportista")
         {

@@ -5,10 +5,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 ?>
 
-<a href="<?= Url::toRoute("usuario/ver") ?>">Lista de usuarios</a>
-
-
-
 <h3>Lista de dias de entrenamientos</h3>
 <table class="table table-bordered">
     <tr>

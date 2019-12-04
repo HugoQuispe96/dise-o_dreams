@@ -6,8 +6,6 @@ use yii\helpers\Url;
 
 <h3><?= $msg ?></h3>
 
-<a href="<?= Url::toRoute("equipo/ver")?>">Ir a la lista de equipos</a>
-
 <h1>Crear Equipo</h1>
 <?php $form = ActiveForm::begin([
     'method' => 'post',
