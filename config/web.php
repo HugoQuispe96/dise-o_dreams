@@ -30,6 +30,12 @@ $config = [
         'pago' => [
             'class' => 'app\modules\pago\Module',
         ],
+        'notificacion' => [
+            'class' => 'app\modules\notificacion\Module',
+        ],
+        'reporte' => [
+            'class' => 'app\modules\reporte\Module',
+        ],
     ],
     'components' => [
         'request' => [

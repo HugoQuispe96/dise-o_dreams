@@ -7,14 +7,65 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\modules\equipo\models\ModeloBusqueda;
 use app\modules\usuarios\models\Users;
+use app\modules\usuarios\models\User;
 use app\modules\equipo\models\Equipos;
 use app\modules\equipo\models\ModeloEquipo;
 use app\modules\equipo\models\ModeloActualizarequipo;
 use app\modules\equipo\models\ModeloAsignacion;
 use app\modules\equipo\models\Asignacionusuario;
+use yii\filters\AccessControl;
 
 class EquipoController extends \yii\web\Controller
-{   public function actionActualizar()
+{   
+    public function behaviors()
+    {
+        return [
+            'access' => 
+            [
+                'class' => AccessControl::className(),
+                'only' => ['actualizar','borrar','crear','ver','borrar_asignacion','ver_asignaciones','asignar_alumno','ver_equipo'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['actualizar','borrar','crear','ver','borrar_asignacion','ver_asignaciones','asignar_alumno','ver_equipo'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isAdministrador();
+                        },
+                    ],
+                ], 
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['equipos_deportista'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['equipos_deportista'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isDeportista();
+                        },
+                    ],
+                ], 
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['equipos_profesor'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['equipos_profesor'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isProfesor();
+                        },
+                    ],
+                ], 
+            ],
+        ];
+    }
+    public function actionActualizar()
     {
         $model = new ModeloActualizarequipo;
         $msg=null;
@@ -146,7 +197,7 @@ class EquipoController extends \yii\web\Controller
             $id1 = Html::encode($_POST["id1_"]);
             try {
 
-                $id_usuario = Users::find()->where(['nombre_usuario' => $id1])->one();
+                $id_usuario = Users::find()->where(['id' => $id1])->one();
 
             } catch (\Exception $e) {
 
@@ -154,7 +205,7 @@ class EquipoController extends \yii\web\Controller
 
             try {
 
-                $id_equipo = Equipos::find()->where(['nombre' => $id])->one();
+                $id_equipo = Equipos::find()->where(['id' => $id])->one();
 
             } catch (\Exception $e) {
             
@@ -171,7 +222,7 @@ class EquipoController extends \yii\web\Controller
                 }catch (\Exception $e) {
 
                 echo "La asignacion se ha eliminado con éxito, redireccionando ...";
-                echo "<meta http-equiv='refresh' content='1; ".Url::toRoute("equipo/ver_asignaciones")."'>";
+                echo "<meta http-equiv='refresh' content='1; ".Url::toRoute("equipo/ver")."'>";
 
                 }
 
@@ -179,12 +230,12 @@ class EquipoController extends \yii\web\Controller
             else
             {
                 echo "1 Ha ocurrido un error al eliminar la asignacion se ha eliminado con éxito, redireccionando ...";
-                echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("equipo/ver_asignaciones")."'>";
+                echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("equipo/ver")."'>";
             }
         }
         else
         {
-            return $this->redirect(["equipo/ver_asignaciones"]);
+            return $this->redirect(["equipo/ver"]);
         }
     }
    
@@ -288,5 +339,20 @@ class EquipoController extends \yii\web\Controller
         }             
         return $this->render("equipos_deportista", ["items" => $items]);
     }
-    
+    public function actionVer_equipo()
+    {   if(Yii::$app->request->get("id")) {
+            $id=Html::encode($_GET["id"]);
+            if ((int) $id) {
+                $consulta="select b.id as id, b.nombre_completo as nombre from equipo_tiene_usuarios a, usuario b where a.idusuario=b.id and a.idequipo =".$id;
+                $array = Yii::$app->db->createCommand($consulta)->queryAll();
+                $items = ArrayHelper::index($array, 'id');
+            }else {
+                return $this->redirect(["equipo/ver"]);
+            }
+        }
+        else {
+            return $this->redirect(["equipo/ver"]);
+        }
+        return $this->render("ver-equipo", ["items" => $items, "id" => $id]);
+    }
 }

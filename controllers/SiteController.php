@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -60,8 +61,12 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-        return $this->render('index');
+    {   if (Yii::$app->user->isGuest){
+            return $this->render('index');
+        }
+        $array = Yii::$app->db->createCommand('SELECT idnotificacion, mensaje  FROM notificacion')->queryAll();
+        $items = ArrayHelper::index($array, 'idnotificacion');
+        return $this->render("index_usuario",["items"=>$items]);
     }
 
     /**

@@ -26,7 +26,7 @@ class UsuarioController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login', 'register', 'logout'],
+                'only' => ['login', 'logout'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -35,10 +35,24 @@ class UsuarioController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['logout','register'],
+                        'actions' => ['logout'],
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['actualizar','borrar','register','ver','randKey'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['actualizar','borrar','register','ver','randKey'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isAdministrador();
+                        },
+                    ],
+                ], 
             ],
         ];
     }

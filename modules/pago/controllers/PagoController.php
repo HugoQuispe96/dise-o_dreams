@@ -13,9 +13,47 @@ use app\modules\usuarios\models\Users;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use app\modules\pago\views\diseñoboleta\Diseno;
+use app\modules\pago\views\diseñoboleta\Diseno_solicitud;
+use yii\filters\AccessControl;
+use app\modules\usuarios\models\User;
 
 class PagoController extends \yii\web\Controller
-{  public function actionAprobarSolicitud()
+{  
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['aprobarsolicitud','generarBoleta','rechazarSolicitud','ver-solicitudes','actualizar_tipo_pago','borrar_tipo_pago','crear_tipo_pago','ver_tipo_pago'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['aprobarsolicitud','generarBoleta','rechazarSolicitud','ver-solicitudes','actualizar_tipo_pago','borrar_tipo_pago','crear_tipo_pago','ver_tipo_pago'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isAdministrador();
+                        },
+                    ],
+                ], 
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['crear-solicitud','ver-solicitudes-deportista','generarsolicitud'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['crear-solicitud','ver-solicitudes-deportista','generarsolicitud'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isDeportista();
+                        },
+                    ],
+                ], 
+            ],
+        ];
+    }
+    public function actionAprobarSolicitud()
     {   if(Yii::$app->request->post())
         {
             $id_solicitud = Html::encode($_POST["id_"]);
@@ -86,7 +124,7 @@ class PagoController extends \yii\web\Controller
                 if ($table->insert())
                 {
                     $model->tipopago_idtipopago = null;
-
+                    $this->actionGenerarSolicitud($table->tipopago_idtipopago, $table->estado, $table->id);
                     $msg = "Enhorabuena, se registro una solicitud de pago";
                 }
                 else
@@ -105,13 +143,14 @@ class PagoController extends \yii\web\Controller
 
     public function actionGenerarBoleta($id,$valor,$nombre_usuario,$rut_usuario,$concepto)
     {   
-        $boleta = new Mpdf();
-        $boleta->WriteHTML("Boleta numero:\t".$id);
-        $boleta->WriteHTML("Nombre de usuario:\t".$nombre_usuario);
-        $boleta->WriteHTML("Rut usuario:\t".$rut_usuario);
-        $boleta->WriteHTML("Fecha de pago:\t".date('Y-m-d'));
-        $boleta->WriteHTML("Concepto:\t".$concepto);
-        $boleta->WriteHTML("Monto pagado:\t".$valor);
+        $css = Diseno::getCss();
+
+        $plantilla = Diseno::getPlantilla($id,$valor,$nombre_usuario,$rut_usuario,$concepto);
+
+        $boleta = new  Mpdf([]);
+        $boleta->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+        $boleta->WriteHTML($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
+
         $boleta->Output();
         exit;
     }
@@ -312,6 +351,18 @@ class PagoController extends \yii\web\Controller
         where a.tipopago_idtipopago = b.id and usuario_idusuario='.Yii::$app->user->identity->id)->queryAll();
         $items = ArrayHelper::index($array, 'id');
         return $this->render("ver-solicitudes-deportista", ["items" => $items]);
+    }
+    public function actionGenerarSolicitud($id_tipo_pago, $estado, $id_solicitud)
+    {   $tipo_pago = TipoPago::findOne($id_tipo_pago);
+
+        $css = Diseno_solicitud::getCss();
+        $plantilla = Diseno_solicitud::getPlantilla($id_solicitud,$estado,$tipo_pago->nombre,$tipo_pago->precio,$tipo_pago->interes);
+        $solicitud = new  Mpdf([]);
+        $solicitud->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+        $solicitud->WriteHTML($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
+
+        $solicitud->Output();
+        exit;
     }
 
 }

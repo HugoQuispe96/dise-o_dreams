@@ -88,7 +88,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     
     /* Regresa el id del usuario */
-    public static function getId()
+    public function getId()
     {
         return $this->id;
     }

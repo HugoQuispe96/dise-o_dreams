@@ -67,8 +67,14 @@ AppAsset::register($this);
                     'heading' => 'Opciones',
                     'items' => [
                         [
+                            'url' => ['/site/index'],
+                            'label' => 'Home',
+                            'icon' => 'home'
+                        ],
+                        ['label' => 'Crear Notificacion', 'icon' => 'glyphicon glyphicon-bell', 'url' => ['/notificacion/notificacion/crear_anuncio']],
+                        [
                             'label' => 'Usuarios',
-                            'icon' => 'user',
+                            'icon' => 'glyphicon glyphicon-list-alt',
                             'items' => [
                                 ['label' => 'Registro', 'url' => ['/usuarios/usuario/register']],
                                 ['label' => 'Ver usuarios', 'url' => ['/usuarios/usuario/ver']],
@@ -76,21 +82,15 @@ AppAsset::register($this);
                         ],
                         [
                             'label' => 'Equipos',
-                            'icon' => 'user',
+                            'icon' => 'glyphicon glyphicon-flag',
                             'items' => [
                                 ['label' => 'Nuevo equipo', 'url' => ['/equipo/equipo/crear']],
                                 ['label' => 'Ver equipos', 'url' => ['/equipo/equipo/ver']],
-                                [   'label' => 'Asignaciones',
-                                    'items' => [
-                                        ['label' => 'Nueva asignacion', 'url' => ['/equipo/equipo/asignar_alumno']],
-                                        ['label' => 'Ver asignaciones', 'url' => ['/equipo/equipo/ver_asignaciones']],
-                                    ],
-                                ],
                             ],
                         ],
                         [
                             'label' => 'Lugares',
-                            'icon' => 'user',
+                            'icon' => 'glyphicon glyphicon-edit',
                             'items' => [
                                 ['label' => 'Nuevo Lugar', 'url' => ['/lugar/lugar/crear']],
                                 ['label' => 'Ver lugares', 'url' => ['/lugar/lugar/ver']],
@@ -98,7 +98,7 @@ AppAsset::register($this);
                         ],
                         [
                             'label' => 'Horario',
-                            'icon' => 'user',
+                            'icon' => 'glyphicon glyphicon-calendar', 	
                             'items' => [
                                 ['label' => 'Nuevo horario', 'url' => ['/horario/horario/crear']],
                                 ['label' => 'Ver horarios', 'url' => ['/horario/horario/ver']],
@@ -106,16 +106,23 @@ AppAsset::register($this);
                         ],
                         [
                             'label' => 'Pagos',
-                            'icon' => 'user',
+                            'icon' => 'glyphicon glyphicon-usd',
                             'items' => [
                                 [   'label' => 'Tipo de pagos',
-                                    'icon' => 'user',
                                     'items' => [
                                         ['label' => 'Nuevo tipo de pago', 'url' => ['/pago/pago/crear_tipo_pago']],
                                         ['label' => 'Ver tipos de pago', 'url' => ['/pago/pago/ver_tipo_pago']],
                                     ],
                                 ],
                                 ['label' => 'Solicitudes pendientes', 'url' => ['/pago/pago/ver-solicitudes']],
+                            ],
+                        ],
+                        [
+                            'label' => 'Reportes',
+                            'icon' => '	glyphicon glyphicon-stats',
+                            'items' => [
+                                ['label' => 'Mensual', 'url' => ['/reporte/reporte/mensual']],
+                                ['label' => 'Anual', 'url' => ['/reporte/reporte/anual']],
                             ],
                         ],
                         ['label' => 'Mi Perfil', 'url' => ['/pruebas/prueba/administrador'], 'icon' => 'user'],
@@ -126,21 +133,13 @@ AppAsset::register($this);
                     'type' => SideNav::TYPE_PRIMARY,
                     'heading' => 'Opciones',
                     'items' => [
-                        ['label' => 'Mis Horarios', 'url' => ['/horario/horario/horario_profesor'], 'icon' => 'user'],
-                        ['label' => 'Mis equipos', 'url' => ['/equipo/equipo/equipos_profesor'], 'icon' => 'user'],
                         [
                             'url' => ['/site/index'],
                             'label' => 'Home',
                             'icon' => 'home'
                         ],
-                        [
-                            'label' => 'Help',
-                            'icon' => 'question-sign',
-                            'items' => [
-                                ['label' => 'About', 'icon'=>'info-sign', 'url'=> ['/site/about']],
-                                ['label' => 'Contact', 'icon'=>'phone', 'url'=>['/site/contact']],
-                            ],
-                        ],
+                        ['label' => 'Mis Horarios', 'url' => ['/horario/horario/horario_profesor'], 'icon' => 'glyphicon glyphicon-calendar'],
+                        ['label' => 'Mis equipos', 'url' => ['/equipo/equipo/equipos_profesor'], 'icon' => 'glyphicon glyphicon-flag'],
                         ['label' => 'Mi perfil', 'url' => ['/pruebas/prueba/profesor'], 'icon' => 'user'],
                     ],
                 ]); 
@@ -149,14 +148,19 @@ AppAsset::register($this);
                     'type' => SideNav::TYPE_PRIMARY,
                     'heading' => 'Opciones',
                     'items' => [
-                        ['label' => 'Mis Horarios', 'url' => ['/horario/horario/horario_deportista'], 'icon' => 'user'],
-                        ['label' => 'Mis equipos', 'url' => ['/equipo/equipo/equipos_deportista'], 'icon' => 'user'],
+                        [
+                            'url' => ['/site/index'],
+                            'label' => 'Home',
+                            'icon' => 'home'
+                        ],
+                        ['label' => 'Mis Horarios', 'url' => ['/horario/horario/horario_deportista'], 'icon' => 'glyphicon glyphicon-calendar'],
+                        ['label' => 'Mis equipos', 'url' => ['/equipo/equipo/equipos_deportista'], 'icon' => 'glyphicon glyphicon-flag'],
                         [
                             'label' => 'Pagos',
-                            'icon' => 'question-sign',
+                            'icon' => 'glyphicon glyphicon-usd',
                             'items' => [
-                                ['label' => 'Nueva solicitud', 'icon'=>'info-sign', 'url'=> ['/pago/pago/crear-solicitud']],
-                                ['label' => 'Solicitudes realizadas', 'icon'=>'phone', 'url'=>['/pago/pago/ver-solicitudes-deportista']],
+                                ['label' => 'Nueva solicitud', 'url'=> ['/pago/pago/crear-solicitud']],
+                                ['label' => 'Solicitudes realizadas', 'url'=>['/pago/pago/ver-solicitudes-deportista']],
                             ],
                         ],
                         ['label' => 'Mi perfil', 'url' => ['/pruebas/prueba/deportista'], 'icon' => 'user'],

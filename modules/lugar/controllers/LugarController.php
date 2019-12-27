@@ -6,10 +6,29 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\modules\lugar\models\ModeloLugarentrenamiento;
 use app\modules\lugar\models\Lugarentrenamiento;
-
+use yii\filters\AccessControl;
+use app\modules\usuarios\models\User;
 
 class LugarController extends \yii\web\Controller
-{
+{   public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['actualizar','borrar','crear','ver'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['actualizar','borrar','crear','ver'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isAdministrador();
+                        },
+                    ],
+                ], 
+            ],
+        ];
+    }
     public function actionActualizar()
     {
         $model = new ModeloLugarentrenamiento;

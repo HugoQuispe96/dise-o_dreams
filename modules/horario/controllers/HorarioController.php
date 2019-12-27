@@ -7,9 +7,57 @@ use app\modules\horario\models\Diaentrenamiento;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use yii\filters\AccessControl;
+use app\modules\usuarios\models\User;
 
 class HorarioController extends \yii\web\Controller
-{
+{   public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['actualizar','borrar','crear','ver'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['actualizar','borrar','crear','ver'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isAdministrador();
+                        },
+                    ],
+                ], 
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['horario_deportista'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['horario_deportista'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isDeportista();
+                        },
+                    ],
+                ], 
+            ],
+            [
+                'class' => AccessControl::className(),
+                'only' => ['horario_profesor'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['horario_profesor'],
+                        'roles' => ['@'],
+                        'matchCallback' => function($rule, $action){
+                            return User::isProfesor();
+                        },
+                    ],
+                ], 
+            ],
+        ];
+    }
     public function actionActualizar()
     {
         $model = new ModeloDiaentrenamiento;

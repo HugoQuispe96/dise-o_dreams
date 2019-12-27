@@ -1,9 +1,8 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<h1>prueba/administrador</h1>
+<h1>Perfil del administrador</h1>
 
 <p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
+    En construcción
 </p>
